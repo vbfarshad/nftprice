@@ -2,10 +2,10 @@
 const pricesDiv = document.getElementById("prices");
 
 // Your API key from Reservoir
-const apiKey = 2621e506-48df-5445-89ec-37dcb476b643;  // Replace with your actual API key from Reservoir
+const apiKey = '2621e506-48df-5445-89ec-37dcb476b643';  // Your actual API key
 
 // Define the collection contract address you want to fetch data from
-const collectionContract = 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D;  // Replace with the NFT collection contract address
+const collectionContract = '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D';  // Your NFT collection contract address
 
 // Fetch data from the Reservoir API
 fetch(`https://api.reservoir.tools/tokens/v5?collection=${collectionContract}`, {
