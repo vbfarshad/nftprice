@@ -1,12 +1,14 @@
 const pricesDiv = document.getElementById("prices");
 
-// Use the CORS proxy by prepending its URL to the OpenSea API request
-fetch('https://cors-anywhere.herokuapp.com/https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=5')
+// Use the AllOrigins CORS proxy to fetch data from OpenSea API
+fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=5'))
     .then(response => response.json())
     .then(data => {
-        if (data.assets) {
-            // Iterate through the assets and display the price and title
-            data.assets.forEach(asset => {
+        // Parse the response from AllOrigins (it's nested inside "contents")
+        const parsedData = JSON.parse(data.contents);
+        
+        if (parsedData.assets) {
+            parsedData.assets.forEach(asset => {
                 const price = asset.sell_orders ? asset.sell_orders[0].current_price : "Not for sale";
                 const title = asset.name ? asset.name : "Unnamed Asset";
                 pricesDiv.innerHTML += `<p>${title}: ${price}</p>`;
