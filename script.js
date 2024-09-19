@@ -8,14 +8,20 @@ const apiKey = 2621e506-48df-5445-89ec-37dcb476b643;  // Replace with your actua
 const collectionContract = 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D;  // Replace with the NFT collection contract address
 
 // Fetch data from the Reservoir API
-fetch(`https://api.reservoir.tools/tokens/v5?collection=${0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D}`, {
+fetch(`https://api.reservoir.tools/tokens/v5?collection=${collectionContract}`, {
     headers: {
         'x-api-key': apiKey  // Pass the API key in the headers
     }
 })
-    .then(response => response.json())  // Parse the JSON response
+    .then(response => {
+        console.log('Full Response:', response); // Log the response object
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`); // Check for non-200 status
+        }
+        return response.json(); // Parse JSON if response is OK
+    })
     .then(data => {
-        console.log('Reservoir API Response:', data);  // Log the response to check its structure
+        console.log('Reservoir API Response:', data); // Log the API response
 
         // Check if tokens data exists in the response
         if (data.tokens) {
