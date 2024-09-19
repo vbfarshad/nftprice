@@ -1,12 +1,12 @@
 const pricesDiv = document.getElementById("prices");
 
-// Use the AllOrigins CORS proxy to fetch data from OpenSea API
+// Use AllOrigins to bypass CORS issues
 fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=5'))
     .then(response => response.json())
     .then(data => {
-        // Parse the response from AllOrigins (it's nested inside "contents")
+        // Parse the response from AllOrigins
         const parsedData = JSON.parse(data.contents);
-        
+
         if (parsedData.assets) {
             parsedData.assets.forEach(asset => {
                 const price = asset.sell_orders ? asset.sell_orders[0].current_price : "Not for sale";
