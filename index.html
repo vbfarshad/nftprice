@@ -14,19 +14,16 @@
         h1 {
             color: #333;
         }
-        h2 {
-            color: #333;
-        }
-        /* Flex container to display tables side by side */
+        /* Flexbox container for side-by-side tables */
         #prices {
             display: flex;
-            flex-wrap: wrap; /* Ensure that if the tables don't fit, they wrap to the next line */
-            gap: 20px; /* Space between tables */
+            flex-wrap: wrap;  /* Wrap tables to the next line if they overflow */
+            gap: 20px;  /* Space between tables */
         }
-        /* Each table style */
+        /* Table styling */
         table {
+            width: 400px;  /* Set a fixed width for each table */
             border-collapse: collapse;
-            width: 400px;  /* Fixed width for each table */
             border: 1px solid #ddd;
         }
         th, td {
@@ -40,10 +37,10 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        /* Responsive behavior: Stack tables vertically on small screens */
+        /* Responsive design: stack tables vertically on narrow screens */
         @media screen and (max-width: 800px) {
             #prices {
-                flex-direction: column; /* Stack tables vertically on narrow screens */
+                flex-direction: column;
             }
         }
     </style>
