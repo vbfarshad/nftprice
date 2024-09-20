@@ -81,7 +81,7 @@ function fetchAndDisplayNFTData(contract) {
 
                 // Construct OpenSea and Blur URLs
                 const openSeaUrl = `https://opensea.io/assets/ethereum/${contract}/${tokenId}`;
-                const blurUrl = `https://blur.io/asset/${contract}/${tokenId}`;
+                const blurUrl = `https://blur.io/eth/asset/${contract}/${tokenId}`;
 
                 const row = `
                     <tr>
