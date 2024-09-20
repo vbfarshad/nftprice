@@ -8,7 +8,7 @@ const apiKey = 'a5d354d5-d348-5802-be9a-147a5dd5caa8';  // Your actual API key
 const collections = [
     '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',  // Example: BAYC
     '0x79FCDEF22feeD20eDDacbB2587640e45491b757f',  // Add more contract addresses here
-    '0xAnotherCollectionContractAddressHere'
+    '0x282BDD42f4eb70e7A9D9F40c8fEA0825B7f68C5D'
 ];
 
 // Function to fetch prices for a single collection
