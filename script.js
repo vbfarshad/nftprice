@@ -8,11 +8,12 @@ const apiKey = 'a5d354d5-d348-5802-be9a-147a5dd5caa8';  // Your actual API key
 const collections = [
     '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',  // Example: BAYC
     '0x79FCDEF22feeD20eDDacbB2587640e45491b757f'   // Another collection contract
-    '0x282BDD42f4eb70e7A9D9F40c8fEA0825B7f68C5D'
 ];
 
 // Function to fetch prices for a single collection
 function fetchPricesForCollection(contractAddress) {
+    console.log(`Fetching data for collection: ${contractAddress}`); // Log collection being fetched
+    
     fetch(`https://api.reservoir.tools/tokens/v5?collection=${contractAddress}`, {
         headers: {
             'x-api-key': apiKey
@@ -25,6 +26,8 @@ function fetchPricesForCollection(contractAddress) {
         return response.json();
     })
     .then(data => {
+        console.log(`Data received for collection: ${contractAddress}`, data);  // Log the response data
+
         // Display collection header
         pricesDiv.innerHTML += `<h2>Collection: ${contractAddress}</h2>`;
 
@@ -39,10 +42,12 @@ function fetchPricesForCollection(contractAddress) {
 
         // Check if tokens data exists in the response
         if (data.tokens) {
-            // Loop through each token and create table rows for each one
             data.tokens.forEach(token => {
                 const price = token.market.floorAsk.price.amount.native || "Not for sale";
                 const title = token.token.name || `Token ID: ${token.token.tokenId}`;
+
+                // Log each token being added to the table
+                console.log(`Adding token: ${title} with price: ${price}`);
 
                 // Add the token info to the table as a new row
                 table += `
@@ -53,6 +58,7 @@ function fetchPricesForCollection(contractAddress) {
                 `;
             });
         } else {
+            console.log(`No tokens found for collection: ${contractAddress}`);
             table += `<tr><td colspan="2">No tokens found for this collection.</td></tr>`;
         }
 
