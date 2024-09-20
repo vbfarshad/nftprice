@@ -3,13 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NFT Price Tracker</title>
-    <script src="script.js" defer></script> <!-- Ensure your script is linked -->
+    <style>
+        /* Simple styling for table and headings */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td {
+            color: #444;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
     <h1>NFT Price Tracker</h1>
-    <div id="prices">Loading prices...</div> <!-- Element to display prices -->
-    <div id="prices"></div>
+    <div id="prices">
+        <!-- Prices will be injected here by script.js -->
+    </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
