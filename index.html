@@ -6,17 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NFT Price Tracker</title>
     <style>
-        /* Simple styling for table and headings */
+        /* Basic styling for the page */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        h1 {
+        h1, h2 {
             color: #333;
         }
-        h2 {
-            color: #555;
-        }
+        /* Table styling */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -35,6 +33,15 @@
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
+        }
+        /* Style for portrait view (stacked tables) */
+        @media screen and (max-width: 600px) {
+            table {
+                width: 100%;  /* Tables will take the full width of the screen */
+                display: block;
+                margin-bottom: 20px;
+                overflow-x: auto;  /* Adds horizontal scrolling for small screens */
+            }
         }
     </style>
 </head>
