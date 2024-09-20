@@ -65,6 +65,7 @@ function fetchAndDisplayNFTData(contract) {
                         <th>Image</th>
                         <th>Name</th>
                         <th>Price (ETH)</th>
+                        <th>Marketplace Link</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -76,12 +77,21 @@ function fetchAndDisplayNFTData(contract) {
                 const price = token.market.floorAsk.price.amount.native || "Not for sale";
                 const title = token.token.name || `Token ID: ${token.token.tokenId}`;
                 const tokenImage = token.token.image || '';  // Fetch token image
-                
+                const tokenId = token.token.tokenId;  // Get token ID
+
+                // Construct OpenSea and Blur URLs
+                const openSeaUrl = `https://opensea.io/assets/ethereum/${contract}/${tokenId}`;
+                const blurUrl = `https://blur.io/asset/${contract}/${tokenId}`;
+
                 const row = `
                     <tr>
                         <td><img src="${tokenImage}" alt="${title}" width="50" height="50"></td>  <!-- Token image -->
                         <td>${title}</td>
                         <td>${price}</td>
+                        <td>
+                            <a href="${openSeaUrl}" target="_blank">View on OpenSea</a> |
+                            <a href="${blurUrl}" target="_blank">View on Blur</a>
+                        </td>
                     </tr>`;
                 
                 tbody.innerHTML += row;
