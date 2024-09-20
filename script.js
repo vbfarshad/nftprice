@@ -9,7 +9,7 @@ const collections = [
     '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',  // Example: Bored Ape Yacht Club
     '0x79FCDEF22feeD20eDDacbB2587640e45491b757f',   // Another collection contract
     '0x282BDD42f4eb70e7A9D9F40c8fEA0825B7f68C5D',
-    '0xB852c6b5892256C264Cc2C888eA462189154D8d7',
+    '0xb852c6b5892256c264cc2c888ea462189154d8d7',
 
 ];
 
