@@ -15,8 +15,8 @@ const collections = [
 
 // Function to fetch and display NFT data
 function fetchAndDisplayNFTData(contract) {
-    // Fetch data from the Reservoir API for each contract address
-    fetch(`https://api.reservoir.tools/tokens/v5?collection=${contract}`, {
+    // First, fetch collection metadata to get the collection icon
+    fetch(`https://api.reservoir.tools/collections/v5?id=${contract}`, {
         headers: {
             'x-api-key': apiKey
         }
@@ -28,8 +28,35 @@ function fetchAndDisplayNFTData(contract) {
         return response.json();
     })
     .then(data => {
-        // Check if tokens data exists in the response
-        if (data.tokens) {
+        const collection = data.collections[0];  // Get the first collection from the response
+        const collectionIcon = collection.image || '';  // Fetch the collection icon
+        const collectionName = collection.name || `Collection ${contract}`;
+
+        // Create a container for each collection's data
+        const collectionContainer = document.createElement('div');
+        collectionContainer.classList.add('collection-container');  // Add some styling class if needed
+
+        // Add the collection icon and name above the table
+        const collectionHeader = `
+            <div class="collection-header" style="display: flex; align-items: center;">
+                <img src="${collectionIcon}" alt="${collectionName}" width="50" height="50" style="margin-right: 10px;">  <!-- Collection icon -->
+                <h2>${collectionName}</h2>  <!-- Collection name -->
+            </div>`;
+        collectionContainer.innerHTML += collectionHeader;
+
+        // Now fetch token-level data
+        fetch(`https://api.reservoir.tools/tokens/v5?collection=${contract}`, {
+            headers: {
+                'x-api-key': apiKey
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
             // Create a table for each collection's data
             const table = document.createElement('table');
             table.innerHTML = `
@@ -60,18 +87,22 @@ function fetchAndDisplayNFTData(contract) {
                 tbody.innerHTML += row;
             });
 
-            // Add the table to the pricesDiv (side by side if screen size allows)
-            pricesDiv.appendChild(table);
-        } else {
-            const message = document.createElement('p');
-            message.textContent = `No tokens found for collection: ${contract}`;
-            pricesDiv.appendChild(message);
-        }
+            // Add the table to the collection container
+            collectionContainer.appendChild(table);
+            pricesDiv.appendChild(collectionContainer);  // Add the entire container (icon + table) to the page
+        })
+        .catch(error => {
+            console.error('Error fetching token data:', error);
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = `Failed to load prices for collection: ${contract}`;
+            collectionContainer.appendChild(errorMessage);
+            pricesDiv.appendChild(collectionContainer);
+        });
     })
     .catch(error => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching collection metadata:', error);
         const errorMessage = document.createElement('p');
-        errorMessage.textContent = `Failed to load prices for collection: ${contract}`;
+        errorMessage.textContent = `Failed to load collection data for: ${contract}`;
         pricesDiv.appendChild(errorMessage);
     });
 }
