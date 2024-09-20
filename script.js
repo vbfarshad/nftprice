@@ -7,7 +7,7 @@ const apiKey = 'a5d354d5-d348-5802-be9a-147a5dd5caa8';  // Your actual API key
 // Array of collection contract addresses
 const collections = [
     '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',  // Example: BAYC
-    '0x49e33C4C2cE1009E76c36b3a4E36eC6Ed60B6cA1',  // Add more contract addresses here
+    '0x79FCDEF22feeD20eDDacbB2587640e45491b757f',  // Add more contract addresses here
     '0xAnotherCollectionContractAddressHere'
 ];
 
