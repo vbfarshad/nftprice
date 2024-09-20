@@ -4,40 +4,51 @@ const pricesDiv = document.getElementById("prices");
 // Your API key from Reservoir
 const apiKey = 'a5d354d5-d348-5802-be9a-147a5dd5caa8';  // Your actual API key
 
-// Define the collection contract address you want to fetch data from
-const collectionContract = '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D';  // Your NFT collection contract address
+// Array of collection contract addresses
+const collections = [
+    '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',  // Example: BAYC
+    '0x49e33C4C2cE1009E76c36b3a4E36eC6Ed60B6cA1',  // Add more contract addresses here
+    '0xAnotherCollectionContractAddressHere'
+];
 
-// Fetch data from the Reservoir API
-fetch(`https://api.reservoir.tools/tokens/v5?collection=${collectionContract}`, {
-    headers: {
-        'x-api-key': apiKey  // Pass the API key in the headers
-    }
-})
-    .then(response => {
-        console.log('Full Response:', response); // Log the response object
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`); // Check for non-200 status
+// Function to fetch prices for a single collection
+function fetchPricesForCollection(contractAddress) {
+    fetch(`https://api.reservoir.tools/tokens/v5?collection=${contractAddress}`, {
+        headers: {
+            'x-api-key': apiKey
         }
-        return response.json(); // Parse JSON if response is OK
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
     })
     .then(data => {
-        console.log('Reservoir API Response:', data); // Log the API response
-
+        // Display collection header
+        pricesDiv.innerHTML += `<h2>Collection: ${contractAddress}</h2>`;
+        
         // Check if tokens data exists in the response
         if (data.tokens) {
             // Loop through each token and display its price and name (or token ID)
             data.tokens.forEach(token => {
-                const price = token.market.floorAsk.price.amount.native || "Not for sale";  // Get price
-                const title = token.token.name || `Token ID: ${token.token.tokenId}`;  // Get token name or ID
+                const price = token.market.floorAsk.price.amount.native || "Not for sale";
+                const title = token.token.name || `Token ID: ${token.token.tokenId}`;
 
                 // Display the token name and price in the pricesDiv element
                 pricesDiv.innerHTML += `<p>${title}: ${price} ETH</p>`;
             });
         } else {
-            pricesDiv.innerHTML = "<p>No tokens found for this collection.</p>";
+            pricesDiv.innerHTML += "<p>No tokens found for this collection.</p>";
         }
     })
     .catch(error => {
-        console.error('Error fetching data from Reservoir:', error);  // Log any error that occurs
-        pricesDiv.innerHTML = "<p>Failed to load prices from Reservoir.</p>";  // Display error message on the page
+        console.error('Error fetching data from Reservoir:', error);
+        pricesDiv.innerHTML += "<p>Failed to load prices for this collection.</p>";
     });
+}
+
+// Loop through the collections array and fetch prices for each collection
+collections.forEach(contractAddress => {
+    fetchPricesForCollection(contractAddress);
+});
