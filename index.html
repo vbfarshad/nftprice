@@ -11,14 +11,23 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        h1, h2 {
+        h1 {
             color: #333;
         }
-        /* Table styling */
+        h2 {
+            color: #333;
+        }
+        /* Flex container to display tables side by side */
+        #prices {
+            display: flex;
+            flex-wrap: wrap; /* Ensure that if the tables don't fit, they wrap to the next line */
+            gap: 20px; /* Space between tables */
+        }
+        /* Each table style */
         table {
-            width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            width: 400px;  /* Fixed width for each table */
+            border: 1px solid #ddd;
         }
         th, td {
             border: 1px solid #ddd;
@@ -28,19 +37,13 @@
         th {
             background-color: #f4f4f4;
         }
-        td {
-            color: #444;
-        }
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        /* Style for portrait view (stacked tables) */
-        @media screen and (max-width: 600px) {
-            table {
-                width: 100%;  /* Tables will take the full width of the screen */
-                display: block;
-                margin-bottom: 20px;
-                overflow-x: auto;  /* Adds horizontal scrolling for small screens */
+        /* Responsive behavior: Stack tables vertically on small screens */
+        @media screen and (max-width: 800px) {
+            #prices {
+                flex-direction: column; /* Stack tables vertically on narrow screens */
             }
         }
     </style>
@@ -48,7 +51,7 @@
 <body>
     <h1>NFT Price Tracker</h1>
     <div id="prices">
-        <!-- Prices will be injected here by script.js -->
+        <!-- Tables will be injected here by script.js -->
     </div>
 
     <script src="script.js"></script>
