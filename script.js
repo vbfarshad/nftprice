@@ -2,7 +2,7 @@
 const pricesDiv = document.getElementById("prices");
 
 // Your API key from Reservoir
-const apiKey = 'a5d354d5-d348-5802-be9a-147a5dd5caa8';  // Your actual API key
+const apiKey = 'a5d354d5-d348-5802-be9a-147a5dd5caa8';  // Replace with your actual API key
 
 // Array of collection contract addresses
 const collections = [
@@ -20,6 +20,7 @@ function fetchPricesForCollection(contractAddress) {
         }
     })
     .then(response => {
+        console.log('Full Response:', response); // Log the response object
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -43,7 +44,7 @@ function fetchPricesForCollection(contractAddress) {
         // Check if tokens data exists in the response
         if (data.tokens) {
             data.tokens.forEach(token => {
-                const price = token.market.floorAsk.price.amount.native || "Not for sale";
+                const price = token.market.floorAsk.price?.amount?.native || "Not for sale";
                 const title = token.token.name || `Token ID: ${token.token.tokenId}`;
 
                 // Log each token being added to the table
